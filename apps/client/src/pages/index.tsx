@@ -110,7 +110,8 @@ export default function Home() {
   const [token, setToken] = useState('');
   const [retrievedMessage, setRetrievedMessage] = useState('');
   const [error, setError] = useState('');
-
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  // console.log(apiUrl);
   const storeMessage = async () => {
     if (!message) {
       alert('Please enter a message');
@@ -118,7 +119,7 @@ export default function Home() {
     }
 
     try {
-      const response = await axios.post('http://localhost:3004/store', { message });
+      const response = await axios.post(`${apiUrl}/store`, { message });
       setToken(response.data.token);
       setMessage('');
     } catch (error) {
@@ -133,7 +134,7 @@ export default function Home() {
     }
 
     try {
-      const response = await axios.get(`http://localhost:3004/retrieve/${token}`);
+      const response = await axios.get(`${apiUrl}/retrieve/${token}`);
       setRetrievedMessage(response.data.message);
       setError('');
     } catch (error) {
