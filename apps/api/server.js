@@ -65,7 +65,7 @@ app.get('/retrieve/:token', async(req, res) => {
   const createdAt = messageDoc.createdAt;
   const diffInMinutes = Math.floor((now - createdAt) / 60000); // ms to mins
 
-  if (diffInMinutes > 5) {
+  if (diffInMinutes > 59) {
     await Message.deleteOne({ token });
     return res.status(410).json({ error: 'Token expired and message deleted' });
   }
